@@ -11,6 +11,8 @@ const Navbar = () => {
   const [isMoblieMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
+  const [isLogedIn, setIsLogedIn] = useState(false);
+
   const pathname = usePathname();
   return (
     <nav className='bg-blue-700 border-b border-blue-500'>
@@ -69,28 +71,31 @@ const Navbar = () => {
                 >
                   Properties
                 </Link>
-                <Link
-                  href='/properties/add'
-                  className={`${(pathname === '/properties/add') ? 'bg-black ' : 'bg-muted'} text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
-                >
-                  Add Property
-                </Link>
+                {isLogedIn && (
+                  <Link
+                    href='/properties/add'
+                    className={`${(pathname === '/properties/add') ? 'bg-black ' : 'bg-muted'} text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+                  >
+                    Add Property
+                  </Link>
+                )}
               </div>
             </div>
           </div>
 
           {/* <!-- Right Side Menu (Logged Out) --> */}
-          <div className='hidden md:block md:ml-6'>
+          {!isLogedIn && (<div className='hidden md:block md:ml-6'>
             <div className='flex items-center'>
               <button className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'>
-                <FaGoogle className='text-white mr-2' />
+                <FaGoogle className='text-white mr]-2' />
                 <span>Login or Register</span>
               </button>
             </div>
-          </div>
+          </div>)}
+
 
           {/* <!-- Right Side Menu (Logged In) --> */}
-          <div className='absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0'>
+          {isLogedIn && (<div className='absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0'>
             <Link href='/messages' className='relative group'>
               <button
                 type='button'
@@ -178,7 +183,8 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-          </div>
+          </div>)}
+
         </div>
       </div>
 
@@ -198,16 +204,19 @@ const Navbar = () => {
             >
               Properties
             </Link>
-            <Link
-              href='/properties/add'
-              className={`${(pathname === '/properties/add') ? 'bg-black text-white' : 'hover:bg-gray-700'} text-gray-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium`}
-            >
-              Add Property
-            </Link>
-            <button className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-4'>
+            {(isLogedIn &&
+              <Link
+                href='/properties/add'
+                className={`${(pathname === '/properties/add') ? 'bg-black text-white' : 'hover:bg-gray-700'} text-gray-300 hover:text-white block rounded-md px-3 py-2 text-base font-medium`}
+              >
+                Add Property
+              </Link>
+            )}
+            {!isLogedIn && (<button className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-4'>
               <FaGoogle className='text-white mr-2' />
               <span>Login or Register</span>
-            </button>
+            </button>)}
+
           </div>
 
         </div>
