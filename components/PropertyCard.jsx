@@ -13,16 +13,16 @@ const PropertyCard = ({ property }) => {
 
   }
   return (
-    <div className="rounded-xl shadow-md relative">
+    <div className="rounded-xl shadow-md relative grid grid-rows-1">
       <Image
-        src={`/images/properties/${property.images[0]}`}
+        src={property.images[0]}
         height={0}
         width={0}
-        sizes='100vw'
-        className="w-full h-auto rounded-t-xl"
+        sizes='100vw 100vw'
+        className="w-full h-auto rounded-t-xl grid-rows-2"
         alt={property.name}
       />
-      <div className="p-4">
+      <div className="p-4 grid-rows-1">
         <div className="text-left md:text-center lg:text-left mb-6">
           <div className="text-gray-600">{property.type}</div>
           <h3 className="text-xl font-bold">{property.name}</h3>
